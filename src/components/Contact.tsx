@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
-import { Mail, MessageCircle, Clock, Send } from "lucide-react";
+import { motion } from "framer-motion";
+import { Mail, Phone, Clock, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
@@ -12,21 +12,75 @@ const Contact = () => {
     projectDetails: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; phone?: string }>({});
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    // Accepts formats: +91 12345 67890, 1234567890, +1-234-567-8900, etc.
+    const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate fields
+    const newErrors: { email?: string; phone?: string } = {};
+    
+    if (!validateEmail(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    
+    if (!validatePhone(formData.phone)) {
+      newErrors.phone = "Please enter a valid phone number";
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setErrors({});
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Request Sent!",
-      description: "Thank you for reaching out. I'll get back to you within 24 hours.",
-    });
-    
-    setFormData({ fullName: "", email: "", phone: "", projectDetails: "" });
-    setIsSubmitting(false);
+    try {
+      const formBody = new URLSearchParams();
+      formBody.append("entry.1623435901", formData.fullName.trim());
+      formBody.append("entry.909414614", formData.email.trim());
+      formBody.append("entry.384570203", formData.phone.trim());
+      formBody.append("entry.352594397", formData.projectDetails.trim());
+
+      await fetch(
+        "https://docs.google.com/forms/d/e/1FAIpQLSeCZVX4wX5MC9AkbGNPD7E7jmjidnRxx0nGIRIPSUuNSRyNpQ/formResponse",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formBody.toString(),
+        }
+      );
+
+      toast({
+        title: "Thanks!",
+        description: "Your project request has been sent. I will contact you shortly.",
+      });
+
+      setFormData({ fullName: "", email: "", phone: "", projectDetails: "" });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -76,21 +130,34 @@ const Contact = () => {
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                  onChange={(e) => {
+                    setFormData({ ...formData, email: e.target.value });
+                    if (errors.email) setErrors({ ...errors, email: undefined });
+                  }}
+                  className={`w-full px-4 py-3 rounded-xl bg-secondary/50 border ${errors.email ? 'border-destructive' : 'border-border'} focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all`}
                   placeholder="your@email.com"
                 />
+                {errors.email && (
+                  <p className="text-destructive text-sm mt-1">{errors.email}</p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Phone</label>
                 <input
                   type="tel"
+                  required
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                  onChange={(e) => {
+                    setFormData({ ...formData, phone: e.target.value });
+                    if (errors.phone) setErrors({ ...errors, phone: undefined });
+                  }}
+                  className={`w-full px-4 py-3 rounded-xl bg-secondary/50 border ${errors.phone ? 'border-destructive' : 'border-border'} focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all`}
                   placeholder="+91 12345 67890"
                 />
+                {errors.phone && (
+                  <p className="text-destructive text-sm mt-1">{errors.phone}</p>
+                )}
               </div>
 
               <div>
@@ -110,7 +177,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl glow-effect hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
@@ -130,16 +197,16 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className="space-y-8"
           >
             <div className="glass-card p-6 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center flex-shrink-0">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold mb-1">Email</h3>
                 <a 
-                  href="mailto:clpstudiocustomershelpline@gmail.com"
+                  href="mailto:clpstudiocustomershelpline@gmail.com" 
                   className="text-muted-foreground hover:text-primary transition-colors break-all"
                 >
                   clpstudiocustomershelpline@gmail.com
@@ -147,33 +214,55 @@ const Contact = () => {
               </div>
             </div>
 
-            <a
-              href="https://wa.me/message/LOVGG4W2VD7GC1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card p-6 flex items-start gap-4 hover:border-primary/50 transition-all block"
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <MessageCircle className="w-6 h-6 text-primary" />
+            <div className="glass-card p-6 flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                <Phone className="w-6 h-6 text-green-400" />
               </div>
               <div>
                 <h3 className="font-semibold mb-1">WhatsApp</h3>
-                <p className="text-muted-foreground">
-                  Click to start a conversation
-                </p>
+                <a 
+                  href="https://wa.me/message/LOVGG4W2VD7GC1" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-green-400 transition-colors"
+                >
+                  Chat on WhatsApp
+                </a>
               </div>
-            </a>
+            </div>
 
             <div className="glass-card p-6 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Clock className="w-6 h-6 text-accent" />
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center flex-shrink-0">
+                <Clock className="w-6 h-6 text-amber-400" />
               </div>
               <div>
                 <h3 className="font-semibold mb-1">Response Time</h3>
                 <p className="text-muted-foreground">
-                  I typically reply within <span className="text-primary font-medium">24 hours</span>
+                  Typically reply within 24 hours
                 </p>
               </div>
+            </div>
+
+            <div className="glass-card p-6 bg-gradient-to-br from-primary/10 to-accent/10">
+              <h3 className="font-semibold mb-3">Why Work With Me?</h3>
+              <ul className="space-y-2 text-muted-foreground text-sm">
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Full-stack expertise with Python & Supabase
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  AI-powered solutions for modern businesses
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Clear communication & timely delivery
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Ongoing support & maintenance
+                </li>
+              </ul>
             </div>
           </motion.div>
         </div>
