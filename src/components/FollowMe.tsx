@@ -2,18 +2,20 @@ import { motion } from "framer-motion";
 import { 
   Instagram, 
   Facebook, 
-  MessageCircle,
   Youtube,
   Send
 } from "lucide-react";
+import arattaiIcon from "@/assets/arattai-icon.png";
+import threadsIcon from "@/assets/threads-icon.png";
+import whatsappIcon from "@/assets/whatsapp-icon.png";
 
 const socials = [
-  { name: "Aratt.ai", url: "https://aratt.ai/@clpstudio", icon: () => <span className="text-lg font-bold">A</span> },
+  { name: "Aratt.ai", url: "https://aratt.ai/@clpstudio", icon: () => <img src={arattaiIcon} alt="Arattai" className="w-5 h-5" /> },
   { name: "Instagram", url: "https://www.instagram.com/charanrajtechy", icon: Instagram },
   { name: "Facebook", url: "https://www.facebook.com/CharanRajTechy", icon: Facebook },
   { name: "Telegram", url: "https://t.me/CLPStudio", icon: Send },
-  { name: "Threads", url: "https://www.threads.com/@charan_raj_panthula", icon: () => <span className="text-lg font-bold">@</span> },
-  { name: "WhatsApp Channel", url: "https://whatsapp.com/channel/0029Vaw4MRPBKfi3XDiUy11j", icon: MessageCircle },
+  { name: "Threads", url: "https://www.threads.com/@charan_raj_panthula", icon: () => <img src={threadsIcon} alt="Threads" className="w-5 h-5" /> },
+  { name: "WhatsApp Channel", url: "https://whatsapp.com/channel/0029Vaw4MRPBKfi3XDiUy11j", icon: () => <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" /> },
   { name: "X (Twitter)", url: "https://x.com/CharanRajTechy", icon: () => <span className="text-lg font-bold">𝕏</span> },
   { name: "YouTube", url: "https://www.youtube.com/@CLPStudiobyCharanRaj?sub_confirmation=1", icon: Youtube },
 ];
