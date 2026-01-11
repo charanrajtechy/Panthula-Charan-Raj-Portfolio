@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import cashfreeIcon from "@/assets/cashfree-icon.png";
 
 const technologies = [
   { name: "Supabase", icon: "https://cdn.simpleicons.org/supabase/3ECF8E" },
   { name: "Firebase", icon: "https://cdn.simpleicons.org/firebase/FFCA28" },
-  { name: "Netlify", icon: "https://cdn.simpleicons.org/netlify/00C7B7" },
+  { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel/white" },
   { name: "GitHub", icon: "https://cdn.simpleicons.org/github/white" },
-  { name: "Cashfree", icon: "https://cdn.simpleicons.org/cashapp/00D632" },
+  { name: "Cashfree", icon: cashfreeIcon },
   { name: "APIs & Integrations", icon: "https://cdn.simpleicons.org/fastapi/009688" },
 ];
 
