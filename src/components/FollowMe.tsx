@@ -15,7 +15,7 @@ const socials = [
   { name: "Facebook", url: "https://www.facebook.com/CharanRajTechy", icon: Facebook },
   { name: "Telegram", url: "https://t.me/CLPStudio", icon: Send },
   { name: "Threads", url: "https://www.threads.com/@charan_raj_panthula", icon: () => <img src={threadsIcon} alt="Threads" className="w-5 h-5" /> },
-  { name: "WhatsApp Channel", url: "https://whatsapp.com/channel/0029Vaw4MRPBKfi3XDiUy11j", icon: () => <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" /> },
+  { name: "WhatsApp Channel", url: "https://whatsapp.com/channel/0029Vaw4MRPBKfi3XDiUy11j", icon: () => <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />, isWhatsApp: true },
   { name: "X (Twitter)", url: "https://x.com/CharanRajTechy", icon: () => <span className="text-lg font-bold">𝕏</span> },
   { name: "YouTube", url: "https://www.youtube.com/@CLPStudiobyCharanRaj?sub_confirmation=1", icon: Youtube },
 ];
@@ -51,12 +51,20 @@ const FollowMe = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ scale: 1.1, y: -3 }}
-              className="glass-card p-4 flex items-center gap-3 hover:border-primary/50 transition-all group interactive-glow"
+              className={`glass-card p-4 flex items-center gap-3 transition-all group interactive-glow ${
+                (social as any).isWhatsApp ? 'hover:border-[#25D366]/50' : 'hover:border-primary/50'
+              }`}
             >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <social.icon className="w-5 h-5 text-primary" />
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
+                (social as any).isWhatsApp 
+                  ? 'bg-[#25D366]/10 group-hover:bg-[#25D366]/20' 
+                  : 'bg-primary/10 group-hover:bg-primary/20'
+              }`}>
+                <social.icon className={`w-5 h-5 ${(social as any).isWhatsApp ? 'text-[#25D366]' : 'text-primary'}`} />
               </div>
-              <span className="font-medium text-sm pr-2 group-hover:text-primary transition-colors">
+              <span className={`font-medium text-sm pr-2 transition-colors ${
+                (social as any).isWhatsApp ? 'group-hover:text-[#25D366]' : 'group-hover:text-primary'
+              }`}>
                 {social.name}
               </span>
             </motion.a>
