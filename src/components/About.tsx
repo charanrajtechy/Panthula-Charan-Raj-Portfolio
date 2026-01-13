@@ -52,7 +52,7 @@ const About = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-center gap-3 p-4 rounded-xl bg-secondary/50 border border-border/50"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-secondary/50 border border-border/50 interactive-glow"
                 >
                   <item.icon className="w-5 h-5 text-primary flex-shrink-0" />
                   <span className="text-sm font-medium">{item.text}</span>
