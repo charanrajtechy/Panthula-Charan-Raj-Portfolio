@@ -51,7 +51,7 @@ const FollowMe = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ scale: 1.1, y: -3 }}
-              className="glass-card p-4 flex items-center gap-3 hover:border-primary/50 transition-all group"
+              className="glass-card p-4 flex items-center gap-3 hover:border-primary/50 transition-all group interactive-glow"
             >
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <social.icon className="w-5 h-5 text-primary" />

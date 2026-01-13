@@ -86,7 +86,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToContact}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl cta-neon-glow hover:bg-primary/90 transition-all duration-300"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl neon-glow-blue hover:bg-primary/90 transition-all duration-300"
             >
               Hire Me
               <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />

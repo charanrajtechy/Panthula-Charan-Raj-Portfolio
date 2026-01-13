@@ -72,7 +72,7 @@ const Pricing = () => {
                 href="https://wa.me/message/LOVGG4W2VD7GC1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl glow-effect hover:bg-primary/90 transition-all"
+                className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl neon-glow-blue hover:bg-primary/90 transition-all"
               >
                 <MessageCircle className="w-5 h-5" />
                 Get Your Custom Quote on WhatsApp

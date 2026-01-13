@@ -46,7 +46,7 @@ const WhatIDo = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card p-8 hover-lift group cursor-pointer gradient-border"
+              className="glass-card p-8 hover-lift group cursor-pointer gradient-border interactive-glow"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                 <service.icon className="w-7 h-7 text-primary" />

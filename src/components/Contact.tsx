@@ -111,7 +111,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6">
+            <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6 interactive-glow">
               <div>
                 <label className="block text-sm font-medium mb-2">Full Name</label>
                 <input
@@ -177,7 +177,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 neon-glow-blue"
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
@@ -199,7 +199,7 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            <div className="glass-card p-6 flex items-start gap-4">
+            <div className="glass-card p-6 flex items-start gap-4 interactive-glow">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center flex-shrink-0">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
@@ -214,7 +214,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="glass-card p-6 flex items-start gap-4">
+            <div className="glass-card p-6 flex items-start gap-4 interactive-glow">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center flex-shrink-0">
                 <Phone className="w-6 h-6 text-green-400" />
               </div>
@@ -231,7 +231,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="glass-card p-6 flex items-start gap-4">
+            <div className="glass-card p-6 flex items-start gap-4 interactive-glow">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center flex-shrink-0">
                 <Clock className="w-6 h-6 text-amber-400" />
               </div>
@@ -243,7 +243,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="glass-card p-6 bg-gradient-to-br from-primary/10 to-accent/10">
+            <div className="glass-card p-6 bg-gradient-to-br from-primary/10 to-accent/10 interactive-glow">
               <h3 className="font-semibold mb-3">Why Work With Me?</h3>
               <ul className="space-y-2 text-muted-foreground text-sm">
                 <li className="flex items-center gap-2">

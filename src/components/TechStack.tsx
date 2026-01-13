@@ -40,7 +40,7 @@ const TechStack = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               whileHover={{ scale: 1.1, y: -5 }}
-              className="glass-card p-6 flex flex-col items-center gap-3 min-w-[140px] cursor-pointer"
+              className="glass-card p-6 flex flex-col items-center gap-3 min-w-[140px] cursor-pointer interactive-glow"
             >
               <img
                 src={tech.icon}
