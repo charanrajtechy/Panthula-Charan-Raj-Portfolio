@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Clock, Send } from "lucide-react";
+import { Mail, Phone, Clock, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import whatsappIcon from "@/assets/whatsapp-icon.png";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -217,7 +216,7 @@ const Contact = () => {
 
             <div className="glass-card p-6 flex items-start gap-4 interactive-glow">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6" />
+                <Phone className="w-6 h-6 text-green-400" />
               </div>
               <div>
                 <h3 className="font-semibold mb-1">WhatsApp</h3>

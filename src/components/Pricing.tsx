@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, Sparkles } from "lucide-react";
-import whatsappIcon from "@/assets/whatsapp-icon.png";
+import { Check, MessageCircle, Sparkles } from "lucide-react";
 
 const features = [
   "Custom design tailored to your brand",
@@ -75,7 +74,7 @@ const Pricing = () => {
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl neon-glow-blue hover:bg-primary/90 transition-all"
               >
-                <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
+                <MessageCircle className="w-5 h-5" />
                 Get Your Custom Quote on WhatsApp
               </a>
             </motion.div>
